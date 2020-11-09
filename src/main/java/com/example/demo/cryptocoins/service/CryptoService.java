@@ -1,11 +1,11 @@
-package com.example.demo.services;
+package com.example.demo.cryptocoins.service;
 
-import com.example.demo.json.Coin;
-import com.example.demo.json.Global;
+import com.example.demo.cryptocoins.model.Coin;
+import com.example.demo.Global;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.List;
@@ -26,22 +26,19 @@ public class CryptoService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Global.class)
-                .map(response -> response.toString())
+                .map(Global::toString)
                 .block(Duration.ofSeconds(2));
     }
 
-    public Mono<List<Coin>> getAllCoins() { //tu chcialbym zwracac jakas tablice albo arrayliste?
+    public List<Coin> getAllCoins() {
         String path = "/coins";
         return client.get()
                 .uri(uriBuilder -> uriBuilder.path(path)
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToFlux(Coin.class)
-                .collectList(); //tutaj zle i na tym zakonczylem :D
-//                .map(response -> response.toString())
-//                .flatMap(Flux::fromIterable);
-//                .map(response -> response.toString())
-//                .block(Duration.ofSeconds(2));
+                .bodyToMono(new ParameterizedTypeReference<List<Coin>>() {
+                })
+                .block(Duration.ofSeconds(2));
     }
 }

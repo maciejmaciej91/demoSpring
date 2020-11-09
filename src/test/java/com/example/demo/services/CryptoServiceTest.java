@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.json.Coin;
+import com.example.demo.cryptocoins.model.Coin;
+import com.example.demo.cryptocoins.service.CryptoService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +26,9 @@ public class CryptoServiceTest {
 
     @Test
     public void getAllCoinsTest() {
-        Mono<List<Coin>> coin = service.getAllCoins();
-        //tu moze jakas petla i logowanie wszystkiego
-        logger.info(coin.toString());
+        List<Coin> coins = service.getAllCoins();
+        for (Coin coin : coins) {
+            logger.info(coin.toString());
+        }
     }
 }

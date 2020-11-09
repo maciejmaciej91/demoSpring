@@ -1,4 +1,4 @@
-package com.example.demo.json;
+package com.example.demo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

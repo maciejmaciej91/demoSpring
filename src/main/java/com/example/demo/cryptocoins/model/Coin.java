@@ -1,17 +1,17 @@
-package com.example.demo.json;
+package com.example.demo.cryptocoins.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class Coin {
-    @JsonProperty("id")
+
+    @JsonProperty
     private String id;
-    @JsonProperty("name")
+    @JsonProperty
     private String name;
 
-    @Override
     public String toString() {
-        return String.format("$s $s", id, name);
+        return String.format("%s %s", id, name);
     }
 }
